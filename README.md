@@ -356,7 +356,7 @@ month       String (e.g. "2025-06")
 
 ## 👤 Author
 
-**Your Name** Muhammad Shaban
+Muhammad Shaban
 BS FinTech — FAST NUCES
 
 ---
