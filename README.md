@@ -1,96 +1,124 @@
-# 💰 Expense Management System with Recommendation Engine
-### FAST NUCES — Web Programming Assignment | BS FinTech Semester 6
+# 💰 Expense Manager — Full Stack MERN Application
+
+A full-stack personal finance web application built with the MERN stack. Users can register, log in, and manage their expenses with a live dashboard that summarises spending by category. The backend is secured with JWT authentication and input validation middleware.
+
+> 🌐 **Live Frontend:** [https://expense-app-zktn-5tcz8beg2-shabbys-projects-c8f4513e.vercel.app/login](https://expense-app-zktn-5tcz8beg2-shabbys-projects-c8f4513e.vercel.app/login)
+>
+> ⚙️ **Live Backend:** [https://expense-app-oxp5.onrender.com](https://expense-app-oxp5.onrender.com)
 
 ---
 
-## 🗂 Project Structure
+## 📸 Project Overview
+
+| Layer | Technology |
+|---|---|
+| Frontend | React.js, React Router DOM |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas (Mongoose ODM) |
+| Authentication | JSON Web Tokens (JWT) + bcryptjs |
+| Deployment | Render (backend) · Vercel (frontend) |
+
+---
+
+## ✨ Features
+
+- 🔐 **User Authentication** — Secure Signup and Login with JWT tokens
+- 🛡️ **Protected Routes** — Unauthenticated users are redirected to Login (both frontend and backend)
+- ➕ **Add Expenses** — Title, amount, category, date, and optional note
+- 🗑️ **Delete Expenses** — Remove any expense with confirmation
+- 📊 **Dashboard Summary** — Total spending breakdown by category using MongoDB aggregation
+- 🔍 **Filter by Category** — Instantly filter the expense list by category
+- 💡 **Recommendation Engine** — Analyses monthly spending and generates personalised saving tips
+- 📱 **Responsive Design** — Works on both mobile and desktop screens
+- 🔒 **Input Validation** — All form inputs and API requests are validated server-side
+
+---
+
+## 🗂️ Project Structure
 
 ```
 expense-app/
-├── backend/                  ← Node.js + Express server
+├── backend/                        # Node.js + Express API
 │   ├── models/
-│   │   ├── User.js           ← Collection 1: Users
-│   │   ├── Expense.js        ← Collection 2: Expenses
-│   │   └── Recommendation.js ← Collection 3: Recommendations
+│   │   ├── User.js                 # Users collection schema
+│   │   ├── Expense.js              # Expenses collection schema
+│   │   └── Recommendation.js       # Recommendations collection schema
 │   ├── routes/
-│   │   ├── authRoutes.js     ← Login & Signup
-│   │   ├── expenseRoutes.js  ← CRUD + Queries
-│   │   └── recommendationRoutes.js ← FinTech Logic
+│   │   ├── authRoutes.js           # POST /api/auth/signup & /login
+│   │   ├── expenseRoutes.js        # GET, POST, DELETE /api/expenses
+│   │   └── recommendationRoutes.js # GET, POST /api/recommendations
 │   ├── middleware/
-│   │   ├── authMiddleware.js ← JWT Protection
-│   │   └── validateMiddleware.js ← Input Validation
-│   ├── server.js             ← Main entry point
-│   └── package.json
+│   │   ├── authMiddleware.js       # JWT verification
+│   │   └── validateMiddleware.js   # Input validation
+│   ├── server.js                   # Entry point
+│   ├── package.json
+│   └── .env.example
 │
-└── frontend/                 ← React app
-    ├── public/index.html
+└── frontend/                       # React application
+    ├── public/
+    │   └── index.html
     └── src/
-        ├── App.js            ← Routes setup
-        ├── index.js          ← React entry point
+        ├── App.js                  # Routes + PrivateRoute
+        ├── index.js
         └── pages/
-            ├── Login.js      ← Page 1
-            ├── Signup.js     ← Page 2
-            ├── Dashboard.js  ← Page 3
-            └── Expenses.js   ← Page 4
+            ├── Login.js
+            ├── Signup.js
+            ├── Dashboard.js
+            └── Expenses.js
 ```
 
 ---
 
-## ✅ Assignment Requirements Checklist
+## ⚙️ Installation & Local Setup
 
-| Requirement | Status | Where |
-|---|---|---|
-| Login + Signup pages | ✅ | Login.js, Signup.js |
-| Protected routes | ✅ | App.js (PrivateRoute) + authMiddleware.js |
-| Token persistence | ✅ | localStorage in Login.js |
-| 3 MongoDB Collections | ✅ | User.js, Expense.js, Recommendation.js |
-| Relationships (referencing) | ✅ | userId in Expense.js + Recommendation.js |
-| CRUD operations | ✅ | POST + GET + DELETE in expenseRoutes.js |
-| 2 Queries (filter + aggregation) | ✅ | GET /expenses?category= and /expenses/summary |
-| Recommendation System logic | ✅ | recommendationRoutes.js |
-| REST API with 3+ routes | ✅ | 8 routes across 3 route files |
-| Auth middleware | ✅ | authMiddleware.js |
-| Input validation middleware | ✅ | validateMiddleware.js |
-| 3+ React pages | ✅ | Login, Signup, Dashboard, Expenses |
-| React Router | ✅ | App.js |
-| Dynamic data (no hardcoded) | ✅ | All data fetched from backend |
-| 2 Security features | ✅ | Input validation + Protected routes |
-| Responsive design | ✅ | flexWrap, maxWidth, mobile-friendly styles |
-| Filter feature | ✅ | Filter buttons in Expenses.js |
-| Show recommendations | ✅ | Dashboard.js recommendations section |
+### Prerequisites
+
+Make sure you have these installed on your machine:
+
+- [Node.js](https://nodejs.org/) v16 or higher
+- [npm](https://www.npmjs.com/)
+- A free [MongoDB Atlas](https://www.mongodb.com/atlas) account
 
 ---
 
-## 🚀 STEP-BY-STEP SETUP (Run Locally First)
-
-### Step 1: Set up MongoDB Atlas (Free Cloud Database)
-
-1. Go to https://www.mongodb.com/atlas and sign up for free
-2. Create a new **free** cluster (M0)
-3. Click **"Connect"** → **"Connect your application"**
-4. Copy the connection string — it looks like:
-   `mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/`
-5. Add your database name at the end: `...mongodb.net/expenseDB`
-
-### Step 2: Set up the Backend
+### 1️⃣ Clone the Repository
 
 ```bash
-# Go into the backend folder
-cd expense-app/backend
+git clone https://github.com/your-username/expense-app.git
+cd expense-app
+```
 
-# Install all packages
+---
+
+### 2️⃣ Backend Setup
+
+```bash
+cd backend
 npm install
+```
 
-# Create the .env file (copy from example)
+Create your environment file:
+
+```bash
 cp .env.example .env
+```
 
-# Now open .env and fill in:
-# MONGO_URI=your MongoDB Atlas connection string
-# JWT_SECRET=any long random string like "mySecret123456"
-# PORT=5000
+Open `.env` and fill in your values:
 
-# Start the backend
+```env
+MONGO_URI=mongodb+srv://yourUsername:yourPassword@cluster0.xxxxx.mongodb.net/expenseDB
+JWT_SECRET=your_long_random_secret_key_here
+PORT=5000
+```
+
+Start the backend server:
+
+```bash
+# Development (auto-restarts on file changes)
 npm run dev
+
+# Production
+npm start
 ```
 
 You should see:
@@ -99,122 +127,240 @@ You should see:
 🚀 Server running on port 5000
 ```
 
-### Step 3: Set up the Frontend
+Test it by visiting: [http://localhost:5000](http://localhost:5000)
+You should see: `Expense Management API is running!`
+
+---
+
+### 3️⃣ Frontend Setup
+
+Open a **new terminal window**:
 
 ```bash
-# Open a NEW terminal window
-cd expense-app/frontend
-
-# Install all packages
+cd frontend
 npm install
+```
 
-# Start React app
+Create your frontend environment file:
+
+```bash
+# Create a .env file in the frontend/ folder
+```
+
+Add this line to `frontend/.env`:
+
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+Start the React app:
+
+```bash
 npm start
 ```
 
-The app opens at http://localhost:3000
+The app opens at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🌐 DEPLOYMENT GUIDE
+## 🔑 Environment Variables
 
-### Step 1: Deploy Backend on Render (Free)
+### Backend (`backend/.env`)
 
-1. Push your code to GitHub (create a repo)
-2. Go to https://render.com and sign up
-3. Click **"New Web Service"** → Connect your GitHub repo
-4. Settings:
-   - **Root Directory**: `backend`
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-5. Add Environment Variables:
-   - `MONGO_URI` = your Atlas connection string
-   - `JWT_SECRET` = your secret key
-   - `PORT` = 5000
-6. Click **Deploy** — you get a URL like `https://expense-backend.onrender.com`
+| Variable | Description | Example |
+|---|---|---|
+| `MONGO_URI` | MongoDB Atlas connection string | `mongodb+srv://user:pass@cluster.mongodb.net/expenseDB` |
+| `JWT_SECRET` | Secret key for signing JWT tokens | `myRandomSecret123456` |
+| `PORT` | Port the server runs on | `5000` |
 
-### Step 2: Deploy Frontend on Vercel (Free)
+### Frontend (`frontend/.env`)
 
-1. Go to https://vercel.com and sign up
-2. Import your GitHub repo
-3. Settings:
-   - **Root Directory**: `frontend`
-   - **Framework**: Create React App
-4. Add Environment Variable:
-   - `REACT_APP_API_URL` = `https://expense-backend.onrender.com/api`
-5. Click **Deploy** — you get a URL like `https://expense-app.vercel.app`
+| Variable | Description | Example |
+|---|---|---|
+| `REACT_APP_API_URL` | Base URL of the backend API | `http://localhost:5000/api` |
+
+
 
 ---
 
-## 📖 VIVA PREPARATION — Explain Every Line
+## 🛣️ API Endpoints
 
-### Q: What is JWT and why do we use it?
-JWT = JSON Web Token. When a user logs in, the server creates a token using a secret key. The token is saved in the browser (localStorage). Every time the user makes a request, the token is sent in the header. The server checks the token to verify the user is logged in. It's like a stamped ticket — you get it at login and show it at every protected door.
+### Auth Routes — `/api/auth`
 
-### Q: Why use referencing instead of embedding?
-We store `userId` (just the ID) in the Expense document instead of copying all user data. This is called **referencing**. If the user changes their name, we don't need to update thousands of expense documents. It's more efficient and avoids data duplication.
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `POST` | `/api/auth/signup` | Register a new user | ❌ |
+| `POST` | `/api/auth/login` | Login and receive JWT token | ❌ |
 
-### Q: How does the Recommendation System work?
-1. Get all expenses for this user in the current month
-2. Group them by category and add up amounts
-3. Compare each category total to our threshold (e.g., Food > PKR 15,000)
-4. If threshold is exceeded → create a "warning" recommendation
-5. If between 80%–100% of threshold → create a "tip" recommendation
-6. Save recommendations to MongoDB and return them to the frontend
-
-### Q: What is the aggregation query?
-```javascript
-Expense.aggregate([
-  { $match: { userId: ... } },     // Filter by this user
-  { $group: { _id: "$category", totalAmount: { $sum: "$amount" } } }, // Sum by category
-  { $sort: { totalAmount: -1 } }   // Sort highest first
-])
+**Signup request body:**
+```json
+{
+  "name": "Ali Khan",
+  "email": "ali@email.com",
+  "password": "secret123"
+}
 ```
-This groups all expenses by category and sums the amounts — like a SQL GROUP BY.
 
-### Q: What is middleware?
-Middleware is a function that runs BETWEEN the request and the route handler. Like a security guard at a door. Our `protect` middleware checks the JWT token. If valid, it passes to the route. If not, it rejects with 401.
+**Login request body:**
+```json
+{
+  "email": "ali@email.com",
+  "password": "secret123"
+}
+```
 
-### Q: Name a security vulnerability in your code
-The JWT_SECRET is stored in the `.env` file. If this file is accidentally committed to GitHub, attackers can forge tokens. Fix: add `.env` to `.gitignore` and use strong random secrets in production.
+**Response (both):**
+```json
+{
+  "message": "Login successful!",
+  "token": "eyJhbGciOiJIUzI1NiIs...",
+  "user": { "id": "64abc...", "name": "Ali Khan", "email": "ali@email.com" }
+}
+```
 
 ---
 
-## 🗄 Database Schema Diagram
+### Expense Routes — `/api/expenses`
 
+> All routes require `Authorization: Bearer <token>` header.
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/expenses` | Add a new expense |
+| `GET` | `/api/expenses` | Get all expenses (optional `?category=Food` filter) |
+| `GET` | `/api/expenses/summary` | Get total spending grouped by category (aggregation) |
+| `DELETE` | `/api/expenses/:id` | Delete a specific expense |
+
+**Add expense request body:**
+```json
+{
+  "title": "Lunch at café",
+  "amount": 850,
+  "category": "Food",
+  "date": "2025-06-01",
+  "note": "Team lunch"
+}
 ```
-Users Collection
-─────────────────────────────
-_id         ObjectId (auto)
-name        String
-email       String (unique)
-password    String (hashed)
-monthlyBudget Number
-createdAt   Date
 
-        │ (one user has many expenses)
-        ↓
+**Valid categories:** `Food` · `Transport` · `Entertainment` · `Shopping` · `Health` · `Other`
 
-Expenses Collection
-─────────────────────────────
-_id         ObjectId (auto)
-userId      ObjectId → ref: User  ← RELATIONSHIP
-title       String
-amount      Number
-category    String (enum)
-date        Date
-note        String
+---
 
-        │ (one user has many recommendations)
-        ↓
+### Recommendation Routes — `/api/recommendations`
 
-Recommendations Collection
-─────────────────────────────
-_id         ObjectId (auto)
-userId      ObjectId → ref: User  ← RELATIONSHIP
+> All routes require `Authorization: Bearer <token>` header.
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/recommendations/generate` | Analyse spending and generate tips |
+| `GET` | `/api/recommendations` | Get saved recommendations |
+
+---
+
+## 🗄️ Database Schema
+
+### Users Collection
+```
+_id           ObjectId (auto-generated)
+name          String (required)
+email         String (unique, required)
+password      String (bcrypt hashed)
+monthlyBudget Number (default: 0)
+createdAt     Date (auto)
+```
+
+### Expenses Collection
+```
+_id      ObjectId
+userId   ObjectId → ref: Users   ← relationship
+title    String (required)
+amount   Number (min: 1)
+category Enum [Food, Transport, Entertainment, Shopping, Health, Other]
+date     Date
+note     String
+```
+
+### Recommendations Collection
+```
+_id         ObjectId
+userId      ObjectId → ref: Users   ← relationship
 message     String
 category    String
-type        String (warning/tip)
+type        Enum [warning, tip]
 amountSpent Number
-month       String (e.g. "2025-01")
+month       String (e.g. "2025-06")
 ```
+
+---
+
+## 🚀 Deployment
+
+### Backend — Render
+
+1. Push code to GitHub
+2. Go to [render.com](https://render.com) → **New Web Service**
+3. Connect your GitHub repository
+4. Configure:
+   - **Root Directory:** `backend`
+   - **Build Command:** `npm install`
+   - **Start Command:** `node server.js`
+5. Add environment variables (`MONGO_URI`, `JWT_SECRET`, `PORT`)
+6. Click **Deploy**
+
+✅ **Deployed at:** [https://expense-app-oxp5.onrender.com](https://expense-app-oxp5.onrender.com)
+
+
+
+---
+
+## 🔒 Security Measures
+
+- Passwords hashed with **bcryptjs** (salt rounds: 10) — never stored as plain text
+- **JWT tokens** signed with a secret key, expire in 7 days
+- **Protected routes** on both frontend (PrivateRoute) and backend (authMiddleware)
+- **Input validation** middleware rejects malformed requests before they reach the database
+- **User data isolation** — all queries filter by `userId` so users cannot access each other's data
+
+---
+
+## 🧠 How the Recommendation Engine Works
+
+1. Fetches all expenses for the current month
+2. Groups them by category and sums the amounts
+3. Compares each category total against a predefined threshold (e.g. Food: PKR 15,000)
+4. If spending **exceeds** the threshold → generates a `warning`
+5. If spending is between **80%–100%** of the threshold → generates a `tip`
+6. Saves recommendations to MongoDB and displays them on the Dashboard
+
+---
+
+## 📦 Dependencies
+
+### Backend
+| Package | Purpose |
+|---|---|
+| `express` | Web server framework |
+| `mongoose` | MongoDB object modelling |
+| `jsonwebtoken` | JWT creation and verification |
+| `bcryptjs` | Password hashing |
+| `cors` | Allow cross-origin requests from frontend |
+| `dotenv` | Load environment variables from .env |
+
+### Frontend
+| Package | Purpose |
+|---|---|
+| `react` | UI library |
+| `react-router-dom` | Client-side page routing |
+
+---
+
+## 👤 Author
+
+**Your Name** Muhammad Shaban
+BS FinTech — FAST NUCES
+
+---
+
+## 📄 License
+
+This project is built for academic purposes as part of the Web Programming course at FAST NUCES.a
