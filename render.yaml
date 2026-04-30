@@ -1,0 +1,17 @@
+# render.yaml — Render deployment configuration
+# Place this in the ROOT of your repo (not inside backend folder)
+
+services:
+  - type: web
+    name: expense-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        sync: false   # You will fill this in Render dashboard
+      - key: JWT_SECRET
+        sync: false   # You will fill this in Render dashboard
+      - key: PORT
+        value: 5000
